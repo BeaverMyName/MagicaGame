@@ -1,46 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Magica.Interfaces;
+﻿using Magica.Interfaces;
 using Magica.Battles;
 
 namespace Magica.Objects.Units.Skills
 {
-    /*
-     * Class that represents all skills in the game.
-     */
-    abstract class Skill : ISkill
+    /// <summary>
+    /// Abstract class that represents all the skills in the game.
+    /// </summary>
+    internal abstract class Skill : ISkill
     {
-        private string[] asset;
-        private string name;
-        private int manaCost;
+        private readonly string[] asset;
+        private readonly string name;
+        private readonly int manaCost;
 
-        public string[] Asset
-        {
-            get
-            {
-                return asset;
-            }
-        }
-
-        public string Name
-        {
-            get
-            {
-                return name;
-            }
-        }
-
-        public int ManaCost
-        {
-            get
-            {
-                return manaCost;
-            }
-        }
-
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Skill"/> class.
+        /// </summary>
+        /// <param name="asset">An array that contains the appearance of the skill.</param>
+        /// <param name="name">A name of the skill.</param>
+        /// <param name="manaCost">An amount of the manacost of the skill.</param>
         public Skill(string[] asset, string name, int manaCost)
         {
             this.asset = asset;
@@ -48,14 +25,54 @@ namespace Magica.Objects.Units.Skills
             this.manaCost = manaCost;
         }
 
-        public virtual bool Action(Unit caster, Unit target)
+        /// <summary>
+        /// Gets an array that contains the appearance of the skill.
+        /// </summary>
+        public string[] Asset
         {
-            if (caster.CurrentMp < manaCost)
+            get
+            {
+                return this.asset;
+            }
+        }
+
+        /// <summary>
+        /// Gets a name of the skill.
+        /// </summary>
+        public string Name
+        {
+            get
+            {
+                return this.name;
+            }
+        }
+
+        /// <summary>
+        /// Gets an amount of the manacost of the skill.
+        /// </summary>
+        public int ManaCost
+        {
+            get
+            {
+                return this.manaCost;
+            }
+        }
+
+        /// <summary>
+        /// Does an action of the skill.
+        /// </summary>
+        /// <param name="caster">Unit that casts the skill.</param>
+        /// <param name="target">Unit that takes the effect of the skill.</param>
+        /// <returns>Whether caster has enough mana to cast the skill.</returns>
+        public virtual bool DoAction(Unit caster, Unit target)
+        {
+            if (caster.CurrentMp < this.manaCost)
             {
                 Battle.ChangeLog($"{caster.Name}: Not enough mana");
                 return false;
             }
-            caster.CurrentMp -= manaCost;
+
+            caster.CurrentMp -= this.manaCost;
             return true;
         }
     }

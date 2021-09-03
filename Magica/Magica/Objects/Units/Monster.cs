@@ -23,7 +23,7 @@ namespace Magica.Objects.Units
 
         public override void Move(IField field)
         {
-            Hero hero = CheckCollizionAround(field, typeof(Hero), ConsoleColor.Yellow) as Hero;
+            Hero hero = CheckCollisionAround(field, typeof(Hero), ConsoleColor.Yellow) as Hero;
             if(hero != null)
             {
                 Battle battle = new Battle(hero, this);

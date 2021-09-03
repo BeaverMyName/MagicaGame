@@ -1,34 +1,40 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Magica.Menus
 {
     /// <summary>
     /// Class that represents all menus in the game.
     /// </summary>
-    class Menu
+    internal class Menu
     {
-        public string[] Items { get; set; }
-
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Menu"/> class.
+        /// </summary>
+        /// <param name="items">An array of the items of the menu.</param>
         public Menu(string[] items)
         {
-            Items = items;
+            this.Items = items;
         }
 
         /// <summary>
-        /// Display the current menu
+        /// Gets or sets an array of the items of the menu.
         /// </summary>
-        /// <param name="pointer"></param>
+        public string[] Items { get; set; }
+
+        /// <summary>
+        /// Displays the current menu.
+        /// </summary>
+        /// <param name="pointer">A pointer of the current menu item.</param>
         public void DisplayMenu(int pointer)
         {
-            for(int i = 0; i < Items.Length; i++)
+            for (int i = 0; i < this.Items.Length; i++)
             {
                 if (i == pointer)
+                {
                     Console.Write("-> ");
-                Console.WriteLine(Items[i]);
+                }
+
+                Console.WriteLine(this.Items[i]);
             }
         }
     }

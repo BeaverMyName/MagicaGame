@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Magica.Interfaces;
 using Magica.Objects.Environment;
 using Magica.UnitInventory;
@@ -10,7 +6,10 @@ using Magica.Equipments;
 
 namespace Magica.Objects.Units
 {
-    class Hero : Unit
+    /// <summary>
+    /// Class that represents all the heroes in the game.
+    /// </summary>
+    internal class Hero : Unit
     {
         public Hero(string name, int maxHp, int maxMp, int dmg, int y, int x, Inventory inventory, Equipment equipments, ConsoleColor color) : base(name, maxHp, maxMp, dmg, y, x, 'O', inventory, equipments, color) { }
 
@@ -21,7 +20,7 @@ namespace Magica.Objects.Units
             switch (key)
             {
                 case ConsoleKey.UpArrow:
-                    if (CheckCollizion(field.Field[Y - 1, X], typeof(Floor)))
+                    if (CheckCollision(field.Field[Y - 1, X], typeof(Floor)))
                     {
                         field.Field[Y, X] = new Floor(Y, X);
                         Y -= 1;
@@ -29,7 +28,7 @@ namespace Magica.Objects.Units
                     }
                     break;
                 case ConsoleKey.DownArrow:
-                    if (CheckCollizion(field.Field[Y + 1, X], typeof(Floor)))
+                    if (CheckCollision(field.Field[Y + 1, X], typeof(Floor)))
                     {
                         field.Field[Y, X] = new Floor(Y, X);
                         Y += 1;
@@ -37,7 +36,7 @@ namespace Magica.Objects.Units
                     }
                     break;
                 case ConsoleKey.LeftArrow:
-                    if (CheckCollizion(field.Field[Y, X - 1], typeof(Floor)))
+                    if (CheckCollision(field.Field[Y, X - 1], typeof(Floor)))
                     {
                         field.Field[Y, X] = new Floor(Y, X);
                         X -= 1;
@@ -45,7 +44,7 @@ namespace Magica.Objects.Units
                     }
                     break;
                 case ConsoleKey.RightArrow:
-                    if (CheckCollizion(field.Field[Y, X + 1], typeof(Floor)))
+                    if (CheckCollision(field.Field[Y, X + 1], typeof(Floor)))
                     {
                         field.Field[Y, X] = new Floor(Y, X);
                         X += 1;

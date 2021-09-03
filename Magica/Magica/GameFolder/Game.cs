@@ -1,26 +1,19 @@
 ﻿using System;
 using Magica.Interfaces;
 using Magica.Objects.Units;
-using Magica.Levels;
 using Magica.Menus;
 using Magica.Battles;
 using Magica.UnitInventory;
-using Magica.Items.Weapons;
-using Magica.Items.Armors;
 using Magica.Equipments;
-using Magica.Objects.Units.Skills;
 using Magica.GameAssets;
-using Magica.Objects.Units.Skills.AttackSkills;
-using Magica.Objects.Units.Skills.DefenceSkills;
 using Magica.Objects.Environment;
-
 
 namespace Magica.GameFolder
 {
     /// <summary>
     /// Class that contains all game objects and levels in the game.
     /// </summary>
-    static class Game
+    public static class Game
     {
         private static IField currentLevel;
         private static Hero hero;
@@ -30,15 +23,15 @@ namespace Magica.GameFolder
 
         static Game()
         {
-            starterPackInventory = new Inventory(ItemExamples.smallHP, ItemExamples.smallHP, ItemExamples.molotov);
-            starterPackEquipment = new Equipment(ItemExamples.woodSword, ItemExamples.woodShield);
+            starterPackInventory = new Inventory(ItemExamples.SmallHP, ItemExamples.SmallHP, ItemExamples.Molotov);
+            starterPackEquipment = new Equipment(ItemExamples.WoodSword, ItemExamples.WoodShield);
             gameMenu = new Menu(new string[] { "Move", "Attack", "Open", "Inventory" });
-            currentLevel = LevelExamples.dungeon1;
+            currentLevel = LevelExamples.Dungeon1;
             hero = new Hero("Paladin", 100, 20, 10, currentLevel.Field.GetLength(0) - 2, 1, starterPackInventory, starterPackEquipment, ConsoleColor.Yellow);
         }
 
         /// <summary>
-        /// Start the game
+        /// Start the game.
         /// </summary>
         public static void StartGame()
         {
@@ -47,6 +40,14 @@ namespace Magica.GameFolder
             {
                 Turn();
             }
+        }
+
+        /// <summary>
+        /// Finish the game.
+        /// </summary>
+        public static void GameOver()
+        {
+            Environment.Exit(0);
         }
 
         /// <summary>
@@ -66,12 +67,18 @@ namespace Magica.GameFolder
                 switch (key)
                 {
                     case ConsoleKey.UpArrow:
-                        if(menu != 0)
+                        if (menu != 0)
+                        {
                             menu -= 1;
+                        }
+
                         break;
                     case ConsoleKey.DownArrow:
                         if (menu != gameMenu.Items.Length - 1)
+                        {
                             menu += 1;
+                        }
+
                         break;
                     case ConsoleKey.Enter:
                         switch (menu)
@@ -83,53 +90,54 @@ namespace Magica.GameFolder
                                     for (int j = 0; j < currentLevel.Field.GetLength(1); j++)
                                     {
                                         obj = currentLevel.Field[i, j] as IMovable;
-                                        if(obj != null && !obj.HaveMoved)
+                                        if (obj != null && !obj.HaveMoved)
+                                        {
                                             obj?.Move(currentLevel);
+                                        }
                                     }
                                 }
+
                                 for (int i = 0; i < currentLevel.Field.GetLength(0); i++)
                                 {
                                     for (int j = 0; j < currentLevel.Field.GetLength(1); j++)
                                     {
                                         obj = currentLevel.Field[i, j] as IMovable;
                                         if (obj != null)
+                                        {
                                             obj.HaveMoved = false;
+                                        }
                                     }
                                 }
+
                                 break;
                             case 1:
-                                Monster monster = hero.CheckCollizionAround(currentLevel, typeof(Monster), ConsoleColor.Red) as Monster;
+                                Monster monster = hero.CheckCollisionAround(currentLevel, typeof(Monster), ConsoleColor.Red) as Monster;
                                 Battle battle;
                                 if (monster != null)
                                 {
                                     battle = new Battle(hero, monster);
                                     battle.PlayBattle(currentLevel);
                                 }
+
                                 break;
                             case 2:
-                                Chest chest = hero.CheckCollizionAround(currentLevel, typeof(Chest), ConsoleColor.Green) as Chest;
+                                Chest chest = hero.CheckCollisionAround(currentLevel, typeof(Chest), ConsoleColor.Green) as Chest;
                                 chest?.Open(hero);
-                                IObject door = hero.CheckCollizionAround(currentLevel, typeof(Door), ConsoleColor.Green) as Door;
-                                if(door != null)
+                                IObject door = hero.CheckCollisionAround(currentLevel, typeof(Door), ConsoleColor.Green) as Door;
+                                if (door != null)
                                 {
                                     currentLevel.Field[door.Y, door.X] = new Floor(door.Y, door.X);
                                 }
+
                                 break;
                             case 3:
                                 hero.Inventory.ManageInventory(hero);
                                 break;
                         }
+
                         break;
                 }
             }
-        }
-
-        /// <summary>
-        /// Finish the game
-        /// </summary>
-        public static void GameOver()
-        {
-            Environment.Exit(0);
         }
     }
 }

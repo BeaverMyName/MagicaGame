@@ -1,39 +1,51 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Magica.Objects.Units;
+﻿using Magica.Objects.Units;
 
 namespace Magica.Items.ConsumableItems
 {
-    class PositiveConsumableItem : ConsumableItem<Hero>
+    /// <summary>
+    /// Class that represents all the positive consumable items in the game.
+    /// </summary>
+    internal class PositiveConsumableItem : EffectConsumableItem<Hero>
     {
         private int hp;
 
-        public int Hp
-        {
-            get
-            {
-                return hp;
-            }
-        }
-
-        public PositiveConsumableItem(string name, UnitStateChanger effect, int hp) : base(name, effect)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PositiveConsumableItem"/> class.
+        /// </summary>
+        /// <param name="name">A name of the item.</param>
+        /// <param name="effect">An effect that an item do.</param>
+        /// <param name="hp">An amount of the hp that an item restore.</param>
+        public PositiveConsumableItem(string name, UnitStateChanger effect, int hp)
+            : base(name, effect)
         {
             this.hp = hp;
         }
 
+        /// <summary>
+        /// Gets an amount of the hp that an item restore.
+        /// </summary>
+        public int Hp
+        {
+            get
+            {
+                return this.hp;
+            }
+        }
+
+        /// <summary>
+        /// Unit takes an effects and hp that an item restore.
+        /// </summary>
+        /// <param name="unit">A target of the item.</param>
         public override void DoEffect(Hero unit)
         {
             base.DoEffect(unit);
-            if (unit.CurrentHp + hp >= unit.MaxHp)
+            if (unit.CurrentHp + this.hp >= unit.MaxHp)
             {
                 unit.CurrentHp = unit.MaxHp;
             }
             else
             {
-                unit.CurrentHp += hp;
+                unit.CurrentHp += this.hp;
             }
         }
     }

@@ -6,19 +6,35 @@ using System.Threading.Tasks;
 
 namespace Magica.Objects.Units.Skills.DefenceSkills
 {
-    /*
-     * Class that represents defence skills in the game. Skill should inherit from the DefenceSkill class if it doesn't damage.
-     */
-    class DefenceSkill : Skill
+    /// <summary>
+    /// Class that represents all the defence skills in the game.
+    /// </summary>
+    internal abstract class DefenceSkill : Skill
     {
-        public DefenceSkill(string[] asset, string name, int manaCost) : base(asset, name, manaCost) { }
-
-        public override bool Action(Unit caster, Unit target)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DefenceSkill"/> class.
+        /// </summary>
+        /// <param name="asset">An array that contains the appearance of the skill.</param>
+        /// <param name="name">A name of the skill.</param>
+        /// <param name="manaCost">An amount of the manacost of the skill.</param>
+        public DefenceSkill(string[] asset, string name, int manaCost)
+            : base(asset, name, manaCost)
         {
-            if (base.Action(caster, target))
+        }
+
+        /// <summary>
+        /// Does an action of the skill.
+        /// </summary>
+        /// <param name="caster">Unit that casts the skill.</param>
+        /// <param name="target">Unit that takes the effect of the skill.</param>
+        /// <returns>Whether caster has enough mana to cast the skill.</returns>
+        public override bool DoAction(Unit caster, Unit target)
+        {
+            if (base.DoAction(caster, target))
             {
                 return true;
             }
+
             return false;
         }
     }

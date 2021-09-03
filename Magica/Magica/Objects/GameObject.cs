@@ -1,81 +1,90 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Magica.Interfaces;
 
 namespace Magica.Objects
 {
     /// <summary>
-    /// Class that represents all objects on the level.
+    /// Class that represents all the objects on the level.
     /// </summary>
     public class GameObject : IObject
     {
+        private readonly char symbol;
         private int y;
         private int x;
-        private char symbol;
         private ConsoleColor color;
 
         /// <summary>
-        /// y position on the level.
+        /// Initializes a new instance of the <see cref="GameObject"/> class.
         /// </summary>
-        public int Y
-        {
-            get
-            {
-                return y;
-            }
-            set
-            {
-                y = value;
-            }
-        }
-
-        /// <summary>
-        /// x position on the level.
-        /// </summary>
-        public int X
-        {
-            get
-            {
-                return x;
-            }
-            set
-            {
-                x = value;
-            }
-        }
-
-        /// <summary>
-        /// Visual appearance of object on the level.
-        /// </summary>
-        public char Symbol
-        {
-            get
-            {
-                return symbol;
-            }
-        }
-
-        public ConsoleColor Color
-        {
-            get
-            {
-                return color;
-            }
-            set
-            {
-                color = value;
-            }
-        }
-
+        /// <param name="y">A vertical position on the level.</param>
+        /// <param name="x">A gorizontal position on the level.</param>
+        /// <param name="symbol">An appearance on the level.</param>
+        /// <param name="color">A color.</param>
         public GameObject(int y, int x, char symbol, ConsoleColor color)
         {
             this.y = y;
             this.x = x;
             this.symbol = symbol;
             this.color = color;
+        }
+
+        /// <summary>
+        /// Gets an appearance of the object on the level.
+        /// </summary>
+        public char Symbol
+        {
+            get
+            {
+                return this.symbol;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets a vertical position on the level.
+        /// </summary>
+        public int Y
+        {
+            get
+            {
+                return this.y;
+            }
+
+            set
+            {
+                this.y = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets a gorizontal position on the level.
+        /// </summary>
+        public int X
+        {
+            get
+            {
+                return this.x;
+            }
+
+            set
+            {
+                this.x = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets a color.
+        /// </summary>
+        public ConsoleColor Color
+        {
+            get
+            {
+                return this.color;
+            }
+
+            set
+            {
+                this.color = value;
+            }
         }
     }
 }

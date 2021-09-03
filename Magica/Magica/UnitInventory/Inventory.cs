@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Magica.Items;
 using Magica.Interfaces;
 using Magica.Items.Weapons;
 using Magica.Objects.Units;
@@ -13,57 +8,66 @@ using Magica.Items.ConsumableItems;
 namespace Magica.UnitInventory
 {
     /// <summary>
-    /// Class that represents invetory of the unit. Inactive items.
+    /// Class that represents the invetories of the units. Contains the inactive items.
     /// </summary>
-    class Inventory
+    internal class Inventory
     {
-        /// <summary>
-        /// Array of all inactive items in the unit inventory.
-        /// </summary>
         private IItem[] unitInventory;
 
-        public IItem[] UnitInventory
-        {
-            get
-            {
-                return unitInventory;
-            }
-            set
-            {
-                unitInventory = value;
-            }
-        }
-
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Inventory"/> class.
+        /// </summary>
+        /// <param name="inventory">An array that contains all the items in the inventory.</param>
         public Inventory(params IItem[] inventory)
         {
             this.unitInventory = inventory;
         }
 
         /// <summary>
-        /// Change inventory of the unit or chest.
+        /// Gets or sets an array that contains all the items in the inventory.
         /// </summary>
-        /// <param name="add">true: add items to the inventory
-        /// false: remove items from the inventory</param>
-        /// <param name="items">Items that you want to add or remove</param>
+        public IItem[] UnitInventory
+        {
+            get
+            {
+                return this.unitInventory;
+            }
+
+            set
+            {
+                this.unitInventory = value;
+            }
+        }
+
+        /// <summary>
+        /// Changes the inventory of the unit.
+        /// </summary>
+        /// <param name="add">true: adds the items to the inventory;
+        /// false: removes the items from the inventory.</param>
+        /// <param name="items">Items that you want to add or remove.</param>
         public void ChangeInventory(bool add, params IItem[] items)
         {
             if (add)
             {
-                IItem[] temp = unitInventory;
-                unitInventory = new IItem[unitInventory.Length + items.Length];
-                for(int i = 0; i < unitInventory.Length; i++)
+                IItem[] temp = this.unitInventory;
+                this.unitInventory = new IItem[this.unitInventory.Length + items.Length];
+                for (int i = 0; i < this.unitInventory.Length; i++)
                 {
                     if (i < temp.Length)
-                        unitInventory[i] = temp[i];
+                    {
+                        this.unitInventory[i] = temp[i];
+                    }
                     else
-                        unitInventory[i] = items[i - temp.Length];
+                    {
+                        this.unitInventory[i] = items[i - temp.Length];
+                    }
                 }
             }
             else
             {
-                IItem[] temp = unitInventory;
+                IItem[] temp = this.unitInventory;
                 byte step = 0;
-                unitInventory = new IItem[unitInventory.Length - 1];
+                this.unitInventory = new IItem[this.unitInventory.Length - 1];
                 for (int i = 0; i < temp.Length; i++)
                 {
                     if (temp[i] == items[0] && step == 0)
@@ -73,58 +77,66 @@ namespace Magica.UnitInventory
                     }
                     else
                     {
-                        unitInventory[i - step] = temp[i];
+                        this.unitInventory[i - step] = temp[i];
                     }
-                        
                 }
             }
         }
 
         /// <summary>
-        /// Method to switch equipment or use consumable items.
+        /// Switches equipment or uses consumables.
         /// </summary>
-        /// <param name="hero">Current hero</param>
-        /// <param name="monster">Target of negative consumable items</param>
+        /// <param name="hero">A current hero.</param>
+        /// <param name="monster">A target of the negative consumable items.</param>
         public void ManageInventory(Unit hero, Unit monster = null)
         {
             int pointer = 0;
             while (true)
             {
-                DisplayInventory(pointer);
+                this.DisplayInventory(pointer);
                 hero.Equipment.DisplayEquipment();
                 ConsoleKey key = Console.ReadKey().Key;
                 switch (key)
                 {
                     case ConsoleKey.UpArrow:
-                        if(pointer > 0)
+                        if (pointer > 0)
+                        {
                             pointer -= 1;
-                        break;
-                    case ConsoleKey.DownArrow:
-                        if (pointer < unitInventory.Length - 1)
-                            pointer += 1;
-                        break;
-                    case ConsoleKey.Enter:
-                        if(unitInventory[pointer] is PositiveConsumableItem)
-                        {
-                            (unitInventory[pointer] as PositiveConsumableItem).DoEffect(hero as Hero);
-                            ChangeInventory(false, unitInventory[pointer]);
-                            
-                        }
-                        else if(unitInventory[pointer] is NegativeConsumableItem && monster != null)
-                        {
-                            (unitInventory[pointer] as NegativeConsumableItem).DoEffect(monster as Monster);
-                            ChangeInventory(false, unitInventory[pointer]);
-                        }
-                        else if(unitInventory[pointer] is Weapon)
-                        {
-                            (unitInventory[pointer], hero.Equipment.Weapon) = (hero.Equipment.Weapon, unitInventory[pointer] as Weapon);
-                        }
-                        else if(unitInventory[pointer] is Armor)
-                        {
-                            (unitInventory[pointer], hero.Equipment.Armor) = (hero.Equipment.Armor, unitInventory[pointer] as Armor);
                         }
 
-                        if (pointer == unitInventory.Length) pointer--;
+                        break;
+                    case ConsoleKey.DownArrow:
+                        if (pointer < this.unitInventory.Length - 1)
+                        {
+                            pointer += 1;
+                        }
+
+                        break;
+                    case ConsoleKey.Enter:
+                        if (this.unitInventory[pointer] is PositiveConsumableItem)
+                        {
+                            (this.unitInventory[pointer] as PositiveConsumableItem).DoEffect(hero as Hero);
+                            this.ChangeInventory(false, this.unitInventory[pointer]);
+                        }
+                        else if (this.unitInventory[pointer] is NegativeConsumableItem && monster != null)
+                        {
+                            (this.unitInventory[pointer] as NegativeConsumableItem).DoEffect(monster as Monster);
+                            this.ChangeInventory(false, this.unitInventory[pointer]);
+                        }
+                        else if (this.unitInventory[pointer] is Weapon)
+                        {
+                            (this.unitInventory[pointer], hero.Equipment.Weapon) = (hero.Equipment.Weapon, this.unitInventory[pointer] as Weapon);
+                        }
+                        else if (this.unitInventory[pointer] is Armor)
+                        {
+                            (this.unitInventory[pointer], hero.Equipment.Armor) = (hero.Equipment.Armor, this.unitInventory[pointer] as Armor);
+                        }
+
+                        if (pointer == this.unitInventory.Length)
+                        {
+                            pointer--;
+                        }
+
                         break;
                     case ConsoleKey.Escape:
                         return;
@@ -136,11 +148,14 @@ namespace Magica.UnitInventory
         {
             Console.Clear();
             Console.WriteLine("INVENTORY\n");
-            for(int i = 0; i < unitInventory.Length; i++)
+            for (int i = 0; i < this.unitInventory.Length; i++)
             {
                 if (menu == i)
+                {
                     Console.Write("-> ");
-                Console.WriteLine(unitInventory[i].ToString());
+                }
+
+                Console.WriteLine(this.unitInventory[i].ToString());
             }
         }
     }

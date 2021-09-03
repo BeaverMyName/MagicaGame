@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Magica.Interfaces;
 using Magica.Objects.Environment;
 using Magica.Objects.Environment.Walls;
@@ -10,72 +6,87 @@ using Magica.Objects.Environment.Walls;
 namespace Magica.Levels
 {
     /// <summary>
-    /// Class that represents all levels in the game.
+    /// Abstract class that represents all levels in the game.
     /// </summary>
-    abstract class Level : IField
+    internal abstract class Level : IField
     {
-        /// <summary>
-        /// Array that contains all objects on the level.
-        /// </summary>
         private IObject[,] field;
-     
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Level"/> class.
+        /// </summary>
+        /// <param name="y">A vertical size of the level.</param>
+        /// <param name="x">A gorizontal size of the level.</param>
+        /// <param name="objects">All objects on the level.</param>
+        public Level(int y, int x, IObject[] objects)
+        {
+            this.field = new IObject[y, x];
+            this.FieldInitialization(objects);
+        }
+
+        /// <summary>
+        /// Gets or sets an array that contains all the objects on the level.
+        /// </summary>
         public IObject[,] Field
         {
             get
             {
-                return field;
+                return this.field;
             }
+
             set
             {
-                field = value;
+                this.field = value;
             }
         }
 
-        public Level(int y, int x, IObject[] objects)
-        {
-            field = new IObject[y, x];
-            FieldInitialization(objects);
-        }
-
         /// <summary>
-        /// Initializing the empty level with Floor's objects and Walls' objects on the borders.
-        /// Then setting all objects on the map.
+        /// Initializes the empty level with Floor's and Walls' objects on the borders.
+        /// Then sets all the objects on the level.
         /// </summary>
-        /// <param name="objects"></param>
+        /// <param name="objects">All objects on the level.</param>
         public virtual void FieldInitialization(IObject[] objects)
         {
-            for (int i = 0; i < Field.GetLength(0); i++)
+            for (int i = 0; i < this.field.GetLength(0); i++)
             {
-                for (int j = 0; j < Field.GetLength(1); j++)
+                for (int j = 0; j < this.field.GetLength(1); j++)
                 {
-                    if (i == 0 || i == Field.GetLength(0) - 1)
-                        field[i, j] = new GorizontalWall(i, j);
-                    else if (j == 0 || j == Field.GetLength(1) - 1)
-                        field[i, j] = new VerticalWall(i, j);
+                    if (i == 0 || i == this.field.GetLength(0) - 1)
+                    {
+                        this.field[i, j] = new GorizontalWall(i, j);
+                    }
+                    else if (j == 0 || j == this.field.GetLength(1) - 1)
+                    {
+                        this.field[i, j] = new VerticalWall(i, j);
+                    }
                     else
-                        field[i, j] = new Floor(i, j);
+                    {
+                        this.field[i, j] = new Floor(i, j);
+                    }
                 }
             }
-            for(int i = 0; i < objects.Length; i++)
+
+            for (int i = 0; i < objects.Length; i++)
             {
-                field[objects[i].Y, objects[i].X] = objects[i];
+                this.field[objects[i].Y, objects[i].X] = objects[i];
             }
         }
 
         /// <summary>
-        /// Display the current level.
+        /// Displays the current level.
         /// </summary>
         public virtual void DisplayField()
         {
             Console.Clear();
 
-            for (int i = 0; i < Field.GetLength(0); i++)
+            for (int i = 0; i < this.field.GetLength(0); i++)
             {
-                for (int j = 0; j < Field.GetLength(1); j++)
+                for (int j = 0; j < this.field.GetLength(1); j++)
                 {
-                    Console.ForegroundColor = Field[i, j].Color;
-                    Console.Write($"{Field[i, j].Symbol} ");
+                    Console.ForegroundColor = this.field[i, j].Color;
+                    Console.Write($"{this.field[i, j].Symbol} ");
                 }
+
                 Console.WriteLine();
             }
         }

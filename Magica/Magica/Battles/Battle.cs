@@ -1,31 +1,30 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Magica.Objects.Units;
 using Magica.Interfaces;
 using Magica.Objects.Environment;
-using Magica.Objects;
 using Magica.GameFolder;
-using Magica.UnitInventory;
-using Magica.GameAssets;
 
 namespace Magica.Battles
 {
     /// <summary>
     /// Class that represents battle in the game between hero and monster.
     /// </summary>
-    class Battle
+    internal class Battle
     {
-        private Hero hero;
-        private Monster monster;
         /// <summary>
         /// Log of the battle under the battle panel (scroll down during the battle).
         /// Contains all actions that happen in each round.
         /// </summary>
         private static string[] log;
 
+        private Hero hero;
+        private Monster monster;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Battle"/> class.
+        /// </summary>
+        /// <param name="hero">Current hero.</param>
+        /// <param name="monster">Enemy.</param>
         public Battle(Hero hero, Monster monster)
         {
             this.hero = hero;
@@ -42,7 +41,10 @@ namespace Magica.Battles
             string[] temp = log;
             log = new string[temp.Length + 1];
             for (int i = 0; i < temp.Length; i++)
+            {
                 log[i] = temp[i];
+            }
+
             log[temp.Length] = action;
         }
 
@@ -57,49 +59,54 @@ namespace Magica.Battles
 
             while (true)
             {
-                DrawBattle(action);
-                if (hero.CurrentHp <= 0)
+                this.DrawBattle(action);
+                if (this.hero.CurrentHp <= 0)
                 {
                     Game.GameOver();
                     log = new string[0];
                 }
+
                 ConsoleKey key = Console.ReadKey().Key;
 
                 switch (key)
                 {
                     case ConsoleKey.LeftArrow:
                         if (action > 0)
+                        {
                             action -= 1;
+                        }
+
                         break;
                     case ConsoleKey.RightArrow:
-                        if (action < hero.Skills.Length - 1)
+                        if (action < this.hero.Skills.Length - 1)
+                        {
                             action += 1;
+                        }
+
                         break;
                     case ConsoleKey.Enter:
                         ChangeLog($"ROUND {++round}:");
-                        
-                        hero.Skills[action].Action(hero, monster);
-                        if (monster.CurrentHp > 0)
+                        this.hero.Skills[action].DoAction(this.hero, this.monster);
+                        if (this.monster.CurrentHp > 0)
                         {
-                            monster.Skills[0].Action(monster, hero);
-                            monster.UnitState?.Invoke(monster);
-                            hero.UnitState?.Invoke(hero);
+                            this.monster.Skills[0].DoAction(this.monster, this.hero);
+                            this.monster.UnitState?.Invoke(this.monster);
+                            this.hero.UnitState?.Invoke(this.hero);
                         }
                         else
                         {
-                            hero.Inventory.ChangeInventory(true, monster.Inventory.UnitInventory);
-                            field.Field[monster.Y, monster.X] = hero;
-                            field.Field[hero.Y, hero.X] = new Floor(hero.Y, hero.X);
-                            hero.Y = monster.Y;
-                            hero.X = monster.X;
-                            hero.UnitState = null;
+                            this.hero.Inventory.ChangeInventory(true, this.monster.Inventory.UnitInventory);
+                            field.Field[this.monster.Y, this.monster.X] = this.hero;
+                            field.Field[this.hero.Y, this.hero.X] = new Floor(this.hero.Y, this.hero.X);
+                            this.hero.Y = this.monster.Y;
+                            this.hero.X = this.monster.X;
+                            this.hero.UnitState = null;
                             log = new string[0];
                             return;
                         }
-                        
+
                         break;
                 }
-                
             }
         }
 
@@ -107,49 +114,49 @@ namespace Magica.Battles
         {
             int step = 0;
             Console.Clear();
-            for(int i = 0; i < 27; i++)
+            for (int i = 0; i < 27; i++)
             {
                 switch (i)
                 {
                     case 2:
-                        Console.Write($"-- {monster.Name} --");
-                        step = $"-- {monster.Name} --".Length;
+                        Console.Write($"-- {this.monster.Name} --");
+                        step = $"-- {this.monster.Name} --".Length;
                         break;
                     case 4:
-                        Console.Write($"HP: {monster.CurrentHp}");
-                        step = $"HP: {monster.CurrentHp}".Length;
+                        Console.Write($"HP: {this.monster.CurrentHp}");
+                        step = $"HP: {this.monster.CurrentHp}".Length;
                         break;
                     case 5:
-                        Console.Write($"Mana: {monster.CurrentMp}");
-                        step = $"Mana: {monster.CurrentMp}".Length;
+                        Console.Write($"Mana: {this.monster.CurrentMp}");
+                        step = $"Mana: {this.monster.CurrentMp}".Length;
                         break;
                     case 7:
-                        Console.Write($"DMG: {monster.Dmg}");
-                        step = $"DMG: {monster.Dmg}".Length;
+                        Console.Write($"DMG: {this.monster.Dmg}");
+                        step = $"DMG: {this.monster.Dmg}".Length;
                         break;
                     case 11:
-                        Console.Write($"-- {hero.Name} --");
-                        step = $"-- {hero.Name} --".Length;
+                        Console.Write($"-- {this.hero.Name} --");
+                        step = $"-- {this.hero.Name} --".Length;
                         break;
                     case 13:
-                        Console.Write($"HP: {hero.CurrentHp}");
-                        step = $"HP: {hero.CurrentHp}".Length;
+                        Console.Write($"HP: {this.hero.CurrentHp}");
+                        step = $"HP: {this.hero.CurrentHp}".Length;
                         break;
                     case 14:
-                        Console.Write($"Mana: {hero.CurrentMp}");
-                        step = $"Mana: {hero.CurrentMp}".Length;
+                        Console.Write($"Mana: {this.hero.CurrentMp}");
+                        step = $"Mana: {this.hero.CurrentMp}".Length;
                         break;
                     case 16:
-                        Console.Write($"DMG: {hero.Dmg}");
-                        step = $"DMG: {hero.Dmg}".Length;
+                        Console.Write($"DMG: {this.hero.Dmg}");
+                        step = $"DMG: {this.hero.Dmg}".Length;
                         break;
                 }
 
                 if (i >= 17)
                 {
-                    for (int j = 0; j < hero.Skills.Length; j++)
+                    for (int j = 0; j < this.hero.Skills.Length; j++)
                     {
-                        Console.Write($"{hero.Skills[j].Asset[i - 17]}   ");
+                        Console.Write($"{this.hero.Skills[j].Asset[i - 17]}   ");
                     }
                 }
 
@@ -158,29 +165,35 @@ namespace Magica.Battles
                     Console.Write(' ');
                 }
 
-                if (i < monster.Image.Length)
-                    Console.Write(monster.Image[i]);
+                if (i < this.monster.Image.Length)
+                {
+                    Console.Write(this.monster.Image[i]);
+                }
+
                 step = 0;
 
                 Console.WriteLine();
             }
 
-            for (int i = 0; i < hero.Skills.Length; i++)
+            for (int i = 0; i < this.hero.Skills.Length; i++)
             {
-                Console.Write(hero.Skills[i].Name);
-                for (int j = 0; j < 13 - hero.Skills[i].Name.Length; j++)
+                Console.Write(this.hero.Skills[i].Name);
+                for (int j = 0; j < 13 - this.hero.Skills[i].Name.Length; j++)
+                {
                     Console.Write(' ');
+                }
             }
 
             Console.WriteLine();
 
-            for(int i = 0; i < action * 13; i++)
+            for (int i = 0; i < action * 13; i++)
             {
                 Console.Write(' ');
             }
+
             Console.WriteLine("__________\n");
 
-            for(int i = 0; i < log.Length; i++)
+            for (int i = 0; i < log.Length; i++)
             {
                 Console.WriteLine(log[i]);
             }

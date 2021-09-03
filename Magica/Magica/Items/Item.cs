@@ -1,39 +1,41 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Magica.Interfaces;
+﻿using Magica.Interfaces;
 
 namespace Magica.Items
 {
     /// <summary>
-    /// Class that represents all items in the game.
+    /// Abstract class that represents all the items in the game.
     /// </summary>
-    abstract class Item : IItem
+    internal abstract class Item : IItem
     {
-        private string name;
-        
-        public string Name
-        {
-            get
-            {
-                return name;
-            }
-            set
-            {
-                name = value;
-            }
-        }
+        private readonly string name;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Item"/> class.
+        /// </summary>
+        /// <param name="name">A name of the item.</param>
         public Item(string name)
         {
             this.name = name;
         }
 
+        /// <summary>
+        /// Gets a name of the item.
+        /// </summary>
+        public string Name
+        {
+            get
+            {
+                return this.name;
+            }
+        }
+
+        /// <summary>
+        /// Returns a string with all characteristics of the item.
+        /// </summary>
+        /// <returns>A string with all characteristics of the item.</returns>
         public override string ToString()
         {
-            return $"{name}";
+            return $"{this.name}";
         }
     }
 }

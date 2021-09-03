@@ -20,7 +20,7 @@ namespace Magica.Objects.Units
     /// <summary>
     /// Class that represents all live units on the level
     /// </summary>
-    abstract class Unit : GameObject, IMovable
+    internal abstract class Unit : GameObject, IMovable
     {
         private string name;
         private int maxHp;
@@ -198,7 +198,7 @@ namespace Magica.Objects.Units
         /// <param name="obj">Specific object</param>
         /// <param name="type">Type of the specific object</param>
         /// <returns></returns>
-        public bool CheckCollizion(IObject obj, Type type)
+        public bool CheckCollision(IObject obj, Type type)
         {
             return obj.GetType() == type ? true : false;
         }
@@ -209,13 +209,13 @@ namespace Magica.Objects.Units
         /// <param name="field">Current level</param>
         /// <param name="type">Type of the specific object</param>
         /// <returns></returns>
-        public IObject CheckCollizionAround(IField field, Type type, ConsoleColor color)
+        public IObject CheckCollisionAround(IField field, Type type, ConsoleColor color)
         {
             for (int i = Y - 1; i < Y + 2; i++)
             {
                 for (int j = X - 1; j < X + 2; j++)
                 {  
-                    if (!(i == Y && j == X) && CheckCollizion(field.Field[i, j], type) && field.Field[i, j].Color == color)
+                    if (!(i == Y && j == X) && CheckCollision(field.Field[i, j], type) && field.Field[i, j].Color == color)
                     {
                         return field.Field[i, j];
                     }

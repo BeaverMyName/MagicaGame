@@ -1,13 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Magica.Objects.Environment.Walls
+﻿namespace Magica.Objects.Environment.Walls
 {
-    class GorizontalWall : Wall
+    /// <summary>
+    /// Class that represents all the gorizontal walls in the game.
+    /// </summary>
+    internal class GorizontalWall : Wall
     {
-        public GorizontalWall(int y, int x) : base(y, x, '=') { }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GorizontalWall"/> class.
+        /// </summary>
+        /// <param name="y">A vertical position of the wall.</param>
+        /// <param name="x">A gorizontal position of the wall.</param>
+        public GorizontalWall(int y, int x)
+            : base(y, x, '=')
+        {
+        }
     }
 }

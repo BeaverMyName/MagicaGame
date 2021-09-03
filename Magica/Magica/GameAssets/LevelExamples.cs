@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Magica.Interfaces;
+﻿using Magica.Interfaces;
 using Magica.Levels;
 using Magica.Objects.Environment;
 using Magica.Objects.Environment.Walls;
@@ -11,17 +6,19 @@ using Magica.UnitInventory;
 using Magica.Equipments;
 using Magica.Objects.Units;
 
-
 namespace Magica.GameAssets
 {
-    static class LevelExamples
+    /// <summary>
+    /// Class that contains examples of the levels.
+    /// </summary>
+    internal static class LevelExamples
     {
-        public static IField dungeon1;
-
+        /// <summary>
+        /// Initializes static members of the <see cref="LevelExamples"/> class.
+        /// </summary>
         static LevelExamples()
         {
-            dungeon1 = new Dungeon(20, 20,
-            new IObject[] {
+            Dungeon1 = new Dungeon(20, 20, new IObject[] {
             #region Room10
             new VerticalWall(1, 7),
             new VerticalWall(3, 7),
@@ -32,8 +29,8 @@ namespace Magica.GameAssets
             new GorizontalWall(4, 4),
             new GorizontalWall(4, 5),
             new GorizontalWall(4, 6),
-            new Monster("Vampire", 200, 40, 10, 2, 4, new Inventory(new IItem[] { ItemExamples.fireStaff }), new Equipment(ItemExamples.woodSword, ItemExamples.woodShield)),
-            new Chest(2, 1, new IItem[] { ItemExamples.molotov, ItemExamples.smallHP }),
+            new Monster("Vampire", 200, 40, 10, 2, 4, new Inventory(new IItem[] { ItemExamples.FireStaff }), new Equipment(ItemExamples.WoodSword, ItemExamples.WoodShield)),
+            new Chest(2, 1, new IItem[] { ItemExamples.Molotov, ItemExamples.SmallHP }),
             #endregion
             #region Room9
             new VerticalWall(1, 11),
@@ -61,8 +58,8 @@ namespace Magica.GameAssets
             new VerticalWall(16, 6),
             new VerticalWall(17, 6),
             new VerticalWall(18, 6),
-            new Monster("Vampire", 50, 30, 5, 16, 4, new Inventory(ItemExamples.smallHP), new Equipment(ItemExamples.woodSword, ItemExamples.woodShield)),
-            new Chest(18, 4, ItemExamples.katana),
+            new Monster("Vampire", 50, 30, 5, 16, 4, new Inventory(ItemExamples.SmallHP), new Equipment(ItemExamples.WoodSword, ItemExamples.WoodShield)),
+            new Chest(18, 4, ItemExamples.Katana),
                 #endregion
             #region Room2
             new GorizontalWall(15, 7),
@@ -81,15 +78,16 @@ namespace Magica.GameAssets
             new GorizontalWall(11, 16),
             new GorizontalWall(11, 17),
             new GorizontalWall(11, 18),
-            new Monster("Vampire", 50, 30, 5, 13, 17, new Inventory(ItemExamples.smallHP), new Equipment(ItemExamples.woodSword, ItemExamples.woodShield)),
-            new Monster("Vampire", 50, 30, 5, 16, 16, new Inventory(ItemExamples.smallHP), new Equipment(ItemExamples.woodSword, ItemExamples.woodShield)),
-            new Monster("Vampire", 50, 30, 5, 18, 18, new Inventory(ItemExamples.smallHP), new Equipment(ItemExamples.woodSword, ItemExamples.woodShield)),
-            new Chest(18, 7, ItemExamples.katana),
-            new Chest(17, 7, ItemExamples.smallHP, ItemExamples.smallHP),
-            new Chest(16, 7, ItemExamples.molotov),
+            new Monster("Vampire", 50, 30, 5, 13, 17, new Inventory(ItemExamples.SmallHP), new Equipment(ItemExamples.WoodSword, ItemExamples.WoodShield)),
+            new Monster("Vampire", 50, 30, 5, 16, 16, new Inventory(ItemExamples.SmallHP), new Equipment(ItemExamples.WoodSword, ItemExamples.WoodShield)),
+            new Monster("Vampire", 50, 30, 5, 18, 18, new Inventory(ItemExamples.SmallHP), new Equipment(ItemExamples.WoodSword, ItemExamples.WoodShield)),
+            new Chest(18, 7, ItemExamples.Katana),
+            new Chest(17, 7, ItemExamples.SmallHP, ItemExamples.SmallHP),
+            new Chest(16, 7, ItemExamples.Molotov),
                 #endregion
-            }
-            ) ; 
+            });
         }
+
+        public static IField Dungeon1 { get; set; }
     }
 }

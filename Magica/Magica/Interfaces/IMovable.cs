@@ -1,19 +1,38 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Magica.Interfaces
 {
     /// <summary>
     /// All movable objects in the game must implement the interface IMovable.
     /// </summary>
-    interface IMovable
+    internal interface IMovable
     {
+        /// <summary>
+        /// Gets or sets a value indicating whether unit have moved.
+        /// </summary>
         public bool HaveMoved { get; set; }
+
+        /// <summary>
+        /// Moves the unit.
+        /// </summary>
+        /// <param name="field">A current level.</param>
         public void Move(IField field);
-        public bool CheckCollizion(IObject obj, Type type);
-        public IObject CheckCollizionAround(IField field, Type type, ConsoleColor color);
+
+        /// <summary>
+        /// Checks whether the collision object is a specific type.
+        /// </summary>
+        /// <param name="obj">Checkable object.</param>
+        /// <param name="type">Specific type.</param>
+        /// <returns>Whether the collision object is a specific type.</returns>
+        public bool CheckCollision(IObject obj, Type type);
+
+        /// <summary>
+        /// Finds an object around the unit.
+        /// </summary>
+        /// <param name="field">Current level.</param>
+        /// <param name="type">Specific type.</param>
+        /// <param name="color">Color of the object.</param>
+        /// <returns>An object with the specific type or null.</returns>
+        public IObject CheckCollisionAround(IField field, Type type, ConsoleColor color);
     }
 }

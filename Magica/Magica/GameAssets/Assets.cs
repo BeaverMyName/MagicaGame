@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Magica.GameAssets
+﻿namespace Magica.GameAssets
 {
     /// <summary>
     /// Class that contains visual assets of the objects and the skills;
     /// </summary>
-    static class Assets
+    internal static class Assets
     {
+        /// <summary>
+        /// Gets image of the inventory.
+        /// </summary>
         public static string[] Inventory
         {
             get
@@ -26,11 +23,14 @@ namespace Magica.GameAssets
                     "|        |",
                     "\\        /",
                     " \\______/ ",
-                    "          "
+                    "          ",
                 };
             }
         }
 
+        /// <summary>
+        /// Gets image of the sword.
+        /// </summary>
         public static string[] Sword
         {
             get
@@ -46,11 +46,14 @@ namespace Magica.GameAssets
                     "-------   ",
                     " / /      ",
                     "/ /       ",
-                    "-         "
+                    "-         ",
                 };
             }
         }
 
+        /// <summary>
+        /// Gets image of the staff.
+        /// </summary>
         public static string[] Staff
         {
             get
@@ -66,11 +69,14 @@ namespace Magica.GameAssets
                     "  / /     ",
                     " / /      ",
                     "/ /       ",
-                    "-         "
+                    "-         ",
                 };
             }
         }
 
+        /// <summary>
+        /// Gets image of the shield.
+        /// </summary>
         public static string[] Shield
         {
             get
@@ -86,11 +92,14 @@ namespace Magica.GameAssets
                    "|        |",
                    "|        |",
                    "\\________/",
-                   "          "
+                   "          ",
                 };
             }
         }
 
+        /// <summary>
+        /// Gets image of the Vampire.
+        /// </summary>
         public static string[] Vampire
         {
             get
@@ -104,7 +113,7 @@ namespace Magica.GameAssets
                     "   |  ___  |   ",
                     "/--| |___| |--\\",
                     "-\\ \\ |/-\\| / /-",
-                    "  | \\_____/ |  "
+                    "  | \\_____/ |  ",
                 };
             }
         }

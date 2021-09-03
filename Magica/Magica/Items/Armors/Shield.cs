@@ -1,14 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Magica.Interfaces;
+﻿using Magica.Interfaces;
 
 namespace Magica.Items.Armors
 {
-    class Shield : Armor
+    /// <summary>
+    /// Class that represents all the shields in the game.
+    /// </summary>
+    internal class Shield : Armor
     {
-        public Shield(string name, int defence, params ISkill[] skills) : base (name, defence, skills) { }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Shield"/> class.
+        /// </summary>
+        /// <param name="name">A name of the shield.</param>
+        /// <param name="defence">An amount of the defence.</param>
+        /// <param name="skills">An array of the skills.</param>
+        public Shield(string name, int defence, params ISkill[] skills)
+            : base(name, defence, skills)
+        {
+        }
     }
 }

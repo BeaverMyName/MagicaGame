@@ -1,9 +1,8 @@
-﻿using System;
-using Magica.GameFolder;
+﻿using Magica.GameFolder;
 
 namespace Magica
 {
-    class Program
+    internal class Program
     {
         static void Main(string[] args)
         {
