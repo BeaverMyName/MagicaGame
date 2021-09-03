@@ -11,8 +11,27 @@ namespace Magica.Objects.Units
     /// </summary>
     internal class Hero : Unit
     {
-        public Hero(string name, int maxHp, int maxMp, int dmg, int y, int x, Inventory inventory, Equipment equipments, ConsoleColor color) : base(name, maxHp, maxMp, dmg, y, x, 'O', inventory, equipments, color) { }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Hero"/> class.
+        /// </summary>
+        /// <param name="name">A name.</param>
+        /// <param name="maxHp">A maximum of hp.</param>
+        /// <param name="maxMp">A maximum of mp.</param>
+        /// <param name="dmg">An amount of the damage that the unit does.</param>
+        /// <param name="y">A vertical position on the level.</param>
+        /// <param name="x">A gorizontal position on the level.</param>
+        /// <param name="inventory">An inventory.</param>
+        /// <param name="equipment">An equipment.</param>
+        /// <param name="color">A color on the level.</param>
+        public Hero(string name, int maxHp, int maxMp, int dmg, int y, int x, Inventory inventory, Equipment equipment, ConsoleColor color)
+            : base(name, maxHp, maxMp, dmg, y, x, 'O', inventory, equipment, color)
+        {
+        }
 
+        /// <summary>
+        /// Moves the unit.
+        /// </summary>
+        /// <param name="field">A current level.</param>
         public override void Move(IField field)
         {
             ConsoleKey key = Console.ReadKey().Key;
@@ -20,36 +39,40 @@ namespace Magica.Objects.Units
             switch (key)
             {
                 case ConsoleKey.UpArrow:
-                    if (CheckCollision(field.Field[Y - 1, X], typeof(Floor)))
+                    if (this.CheckCollision(field.Field[this.Y - 1, this.X], typeof(Floor)))
                     {
-                        field.Field[Y, X] = new Floor(Y, X);
-                        Y -= 1;
-                        field.Field[Y, X] = this;
+                        field.Field[this.Y, this.X] = new Floor(this.Y, this.X);
+                        this.Y -= 1;
+                        field.Field[this.Y, this.X] = this;
                     }
+
                     break;
                 case ConsoleKey.DownArrow:
-                    if (CheckCollision(field.Field[Y + 1, X], typeof(Floor)))
+                    if (this.CheckCollision(field.Field[this.Y + 1, this.X], typeof(Floor)))
                     {
-                        field.Field[Y, X] = new Floor(Y, X);
-                        Y += 1;
-                        field.Field[Y, X] = this;
+                        field.Field[this.Y, this.X] = new Floor(this.Y, this.X);
+                        this.Y += 1;
+                        field.Field[this.Y, this.X] = this;
                     }
+
                     break;
                 case ConsoleKey.LeftArrow:
-                    if (CheckCollision(field.Field[Y, X - 1], typeof(Floor)))
+                    if (this.CheckCollision(field.Field[this.Y, this.X - 1], typeof(Floor)))
                     {
-                        field.Field[Y, X] = new Floor(Y, X);
-                        X -= 1;
-                        field.Field[Y, X] = this;
+                        field.Field[this.Y, this.X] = new Floor(this.Y, this.X);
+                        this.X -= 1;
+                        field.Field[this.Y, this.X] = this;
                     }
+
                     break;
                 case ConsoleKey.RightArrow:
-                    if (CheckCollision(field.Field[Y, X + 1], typeof(Floor)))
+                    if (this.CheckCollision(field.Field[this.Y, this.X + 1], typeof(Floor)))
                     {
-                        field.Field[Y, X] = new Floor(Y, X);
-                        X += 1;
-                        field.Field[Y, X] = this;
+                        field.Field[this.Y, this.X] = new Floor(this.Y, this.X);
+                        this.X += 1;
+                        field.Field[this.Y, this.X] = this;
                     }
+
                     break;
             }
 
