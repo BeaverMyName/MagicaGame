@@ -24,7 +24,7 @@ namespace Magica.Objects.Units
         /// <param name="equipment">An equipment.</param>
         /// <param name="color">A color on the level.</param>
         public Hero(string name, int maxHp, int maxMp, int dmg, int y, int x, Inventory inventory, Equipment equipment, ConsoleColor color)
-            : base(name, maxHp, maxMp, dmg, y, x, 'O', inventory, equipment, color)
+            : base(name, maxHp, maxMp, dmg, y, x, '\u0002', inventory, equipment, color)
         {
         }
 

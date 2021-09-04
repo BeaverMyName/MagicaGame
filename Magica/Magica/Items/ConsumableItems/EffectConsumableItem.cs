@@ -3,13 +3,13 @@
 namespace Magica.Items.ConsumableItems
 {
     /// <summary>
-    /// Class that represents all consumable items in the game.
+    /// Class that represents all effect consumable items in the game.
     /// </summary>
     /// <typeparam name="T">Hero if item is positive and Monser if - negative.</typeparam>
-    internal class EffectConsumableItem<T> : Item
+    internal class EffectConsumableItem<T> : ConsumableItem<T>
         where T : Unit
     {
-        private UnitStateChanger itemEffect;
+        private readonly UnitStateChanger itemEffect;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="EffectConsumableItem{T}"/> class.

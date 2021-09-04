@@ -7,6 +7,7 @@ using Magica.UnitInventory;
 using Magica.Equipments;
 using Magica.GameAssets;
 using Magica.Objects.Environment;
+using Magica.Items.ConsumableItems;
 
 namespace Magica.GameFolder
 {
@@ -23,7 +24,7 @@ namespace Magica.GameFolder
 
         static Game()
         {
-            starterPackInventory = new Inventory(ItemExamples.SmallHP, ItemExamples.SmallHP, ItemExamples.Molotov);
+            starterPackInventory = new Inventory(ItemExamples.SmallHP, ItemExamples.SmallHP, ItemExamples.Molotov, new MasterKey("Master key"));
             starterPackEquipment = new Equipment(ItemExamples.WoodSword, ItemExamples.WoodShield);
             gameMenu = new Menu(new string[] { "Move", "Attack", "Open", "Inventory" });
             currentLevel = LevelExamples.Dungeon1;
@@ -122,7 +123,7 @@ namespace Magica.GameFolder
                                 break;
                             case 2:
                                 Chest chest = hero.CheckCollisionAround(currentLevel, typeof(Chest), ConsoleColor.Green) as Chest;
-                                chest?.Open(hero);
+                                chest?.TakesItems(hero);
                                 IObject door = hero.CheckCollisionAround(currentLevel, typeof(Door), ConsoleColor.Green) as Door;
                                 if (door != null)
                                 {
@@ -131,7 +132,7 @@ namespace Magica.GameFolder
 
                                 break;
                             case 3:
-                                hero.Inventory.ManageInventory(hero);
+                                hero.Inventory.ManageInventory(hero, field: currentLevel);
                                 break;
                         }
 

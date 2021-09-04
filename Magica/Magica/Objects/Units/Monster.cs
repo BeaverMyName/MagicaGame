@@ -27,7 +27,7 @@ namespace Magica.Objects.Units
         /// <param name="equipment">An equipment.</param>
         /// <param name="color">A color on the level.</param>
         public Monster(string name, int maxHp, int maxMp, int dmg, int y, int x, Inventory inventory, Equipment equipment, ConsoleColor color = ConsoleColor.Red)
-            : base(name, maxHp, maxMp, dmg, y, x, 'X', inventory, equipment, color)
+            : base(name, maxHp, maxMp, dmg, y, x, '\u000C', inventory, equipment, color)
         {
         }
 

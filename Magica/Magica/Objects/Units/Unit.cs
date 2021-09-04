@@ -248,10 +248,11 @@ namespace Magica.Objects.Units
         /// </summary>
         /// <param name="obj">Checkable object.</param>
         /// <param name="type">Specific type.</param>
+        /// <param name="implement">A name of the interface that the object implements.</param>
         /// <returns>Whether the collision object is a specific type.</returns>
-        public bool CheckCollision(IObject obj, Type type)
+        public bool CheckCollision(IObject obj, Type type, string implement = "unknown")
         {
-            return obj.GetType() == type ? true : false;
+            return obj.GetType() == type ? true : false || obj.GetType().GetInterface(implement) == type ? true : false;
         }
 
         /// <summary>
@@ -260,14 +261,15 @@ namespace Magica.Objects.Units
         /// <param name="field">Current level.</param>
         /// <param name="type">Specific type.</param>
         /// <param name="color">Color of the object.</param>
+        /// <param name="implement">A name of the interface that the object implements.</param>
         /// <returns>An object with the specific type or null.</returns>
-        public IObject CheckCollisionAround(IField field, Type type, ConsoleColor color)
+        public IObject CheckCollisionAround(IField field, Type type, ConsoleColor color, string implement = "unknown")
         {
             for (int i = this.Y - 1; i < this.Y + 2; i++)
             {
                 for (int j = this.X - 1; j < this.X + 2; j++)
                 {
-                    if (!(i == this.Y && j == this.X) && this.CheckCollision(field.Field[i, j], type) && field.Field[i, j].Color == color)
+                    if (!(i == this.Y && j == this.X) && this.CheckCollision(field.Field[i, j], type, implement) && field.Field[i, j].Color == color)
                     {
                         return field.Field[i, j];
                     }

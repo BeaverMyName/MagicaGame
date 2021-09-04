@@ -1,10 +1,12 @@
-﻿using Magica.Interfaces;
+﻿using System;
+using Magica.Interfaces;
 using Magica.Levels;
 using Magica.Objects.Environment;
 using Magica.Objects.Environment.Walls;
 using Magica.UnitInventory;
 using Magica.Equipments;
 using Magica.Objects.Units;
+using Magica.Items.ConsumableItems;
 
 namespace Magica.GameAssets
 {
@@ -30,7 +32,7 @@ namespace Magica.GameAssets
             new GorizontalWall(4, 5),
             new GorizontalWall(4, 6),
             new Monster("Vampire", 200, 40, 10, 2, 4, new Inventory(new IItem[] { ItemExamples.FireStaff }), new Equipment(ItemExamples.WoodSword, ItemExamples.WoodShield)),
-            new Chest(2, 1, new IItem[] { ItemExamples.Molotov, ItemExamples.SmallHP }),
+            new Chest(2, 1, ConsoleColor.Green, new IItem[] { ItemExamples.Molotov, ItemExamples.SmallHP }),
             #endregion
             #region Room9
             new VerticalWall(1, 11),
@@ -52,14 +54,14 @@ namespace Magica.GameAssets
             new VerticalWall(16, 2),
             new GorizontalWall(15, 2),
             new GorizontalWall(15, 3),
-            new Door(15, 4),
+            new Door(15, 4, ConsoleColor.Yellow),
             new GorizontalWall(15, 5),
             new GorizontalWall(15, 6),
             new VerticalWall(16, 6),
             new VerticalWall(17, 6),
             new VerticalWall(18, 6),
-            new Monster("Vampire", 50, 30, 5, 16, 4, new Inventory(ItemExamples.SmallHP), new Equipment(ItemExamples.WoodSword, ItemExamples.WoodShield)),
-            new Chest(18, 4, ItemExamples.Katana),
+            new Monster("Vampire", 50, 30, 5, 16, 4, new Inventory(ItemExamples.SmallHP, new MasterKey("Master key")), new Equipment(ItemExamples.WoodSword, ItemExamples.WoodShield)),
+            new Chest(18, 4, ConsoleColor.Green, ItemExamples.Katana),
                 #endregion
             #region Room2
             new GorizontalWall(15, 7),
@@ -72,7 +74,7 @@ namespace Magica.GameAssets
             new GorizontalWall(15, 14),
             new VerticalWall(15, 15),
             new VerticalWall(14, 15),
-            new Door(13, 15),
+            new Door(13, 15, ConsoleColor.Yellow),
             new VerticalWall(12, 15),
             new GorizontalWall(11, 15),
             new GorizontalWall(11, 16),
@@ -81,9 +83,9 @@ namespace Magica.GameAssets
             new Monster("Vampire", 50, 30, 5, 13, 17, new Inventory(ItemExamples.SmallHP), new Equipment(ItemExamples.WoodSword, ItemExamples.WoodShield)),
             new Monster("Vampire", 50, 30, 5, 16, 16, new Inventory(ItemExamples.SmallHP), new Equipment(ItemExamples.WoodSword, ItemExamples.WoodShield)),
             new Monster("Vampire", 50, 30, 5, 18, 18, new Inventory(ItemExamples.SmallHP), new Equipment(ItemExamples.WoodSword, ItemExamples.WoodShield)),
-            new Chest(18, 7, ItemExamples.Katana),
-            new Chest(17, 7, ItemExamples.SmallHP, ItemExamples.SmallHP),
-            new Chest(16, 7, ItemExamples.Molotov),
+            new Chest(18, 7, ConsoleColor.Green, ItemExamples.Katana),
+            new Chest(17, 7, ConsoleColor.Green, ItemExamples.SmallHP, ItemExamples.SmallHP),
+            new Chest(16, 7, ConsoleColor.Green, ItemExamples.Molotov),
                 #endregion
             });
         }

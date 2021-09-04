@@ -23,8 +23,9 @@ namespace Magica.Interfaces
         /// </summary>
         /// <param name="obj">Checkable object.</param>
         /// <param name="type">Specific type.</param>
+        /// <param name="implement">A name of the interface that the object implements.</param>
         /// <returns>Whether the collision object is a specific type.</returns>
-        public bool CheckCollision(IObject obj, Type type);
+        public bool CheckCollision(IObject obj, Type type, string implement);
 
         /// <summary>
         /// Finds an object around the unit.
@@ -32,7 +33,8 @@ namespace Magica.Interfaces
         /// <param name="field">Current level.</param>
         /// <param name="type">Specific type.</param>
         /// <param name="color">Color of the object.</param>
+        /// <param name="implement">A name of the interface that the object implements.</param>
         /// <returns>An object with the specific type or null.</returns>
-        public IObject CheckCollisionAround(IField field, Type type, ConsoleColor color);
+        public IObject CheckCollisionAround(IField field, Type type, ConsoleColor color, string implement);
     }
 }

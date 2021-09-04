@@ -88,7 +88,8 @@ namespace Magica.UnitInventory
         /// </summary>
         /// <param name="hero">A current hero.</param>
         /// <param name="monster">A target of the negative consumable items.</param>
-        public void ManageInventory(Unit hero, Unit monster = null)
+        /// <param name="field">A current level.</param>
+        public void ManageInventory(Unit hero, Unit monster = null, IField field = null)
         {
             int pointer = 0;
             while (true)
@@ -130,6 +131,10 @@ namespace Magica.UnitInventory
                         else if (this.unitInventory[pointer] is Armor)
                         {
                             (this.unitInventory[pointer], hero.Equipment.Armor) = (hero.Equipment.Armor, this.unitInventory[pointer] as Armor);
+                        }
+                        else if (this.UnitInventory[pointer] is MasterKey)
+                        {
+                            (this.UnitInventory[pointer] as MasterKey).Open(field, hero);
                         }
 
                         if (pointer == this.unitInventory.Length)

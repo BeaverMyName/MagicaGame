@@ -11,7 +11,7 @@
         /// <param name="y">A vertical position of the wall.</param>
         /// <param name="x">A gorizontal position of the wall.</param>
         public GorizontalWall(int y, int x)
-            : base(y, x, '=')
+            : base(y, x, '\u0016')
         {
         }
     }

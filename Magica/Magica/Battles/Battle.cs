@@ -35,7 +35,7 @@ namespace Magica.Battles
         /// <summary>
         /// Adding new action to the log.
         /// </summary>
-        /// <param name="action">The action that happened</param>
+        /// <param name="action">The action that happened.</param>
         public static void ChangeLog(string action)
         {
             string[] temp = log;
@@ -49,9 +49,9 @@ namespace Magica.Battles
         }
 
         /// <summary>
-        /// Method that represents whole battle process. 
+        /// Method that represents whole battle process.
         /// </summary>
-        /// <param name="field">Current level</param>
+        /// <param name="field">Current level.</param>
         public void PlayBattle(IField field)
         {
             int action = 0;
